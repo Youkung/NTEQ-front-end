@@ -101,23 +101,44 @@ function Equipment() {
   };
 
   const handleDelete = async (equipmentId) => {
-    // แสดงกล่องข้อความยืนยันการลบ
-    const isConfirmed = window.confirm("คุณแน่ใจหรือไม่ที่จะลบอุปกรณ์นี้?");
-
-    // ดำเนินการลบเมื่อผู้ใช้กด OK
-    if (isConfirmed) {
-      try {
-        await axios.delete(
-          `https://nteq-back-end.vercel.app/api/equipment/${equipmentId}`
+    try {
+        // First attempt to delete without items
+        const response = await axios.delete(
+            `https://nteq-back-end.vercel.app/api/equipment/${equipmentId}`
         );
-        // รีเฟรชข้อมูลหลังลบสำเร็จ
-        FetchData();
-      } catch (error) {
+
+        if (response.status === 200) {
+            // Deletion successful
+            FetchData();
+            return;
+        }
+    } catch (error) {
+        if (error.response?.status === 409) {
+            // Equipment has items
+            const itemCount = error.response.data.itemCount;
+            const confirmDelete = window.confirm(
+                `อุปกรณ์นี้มี ${itemCount} เครื่องในระบบ\nคุณต้องการลบอุปกรณ์ย่อยทั้งหมดด้วยหรือไม่?`
+            );
+
+            if (confirmDelete) {
+                try {
+                    // Attempt deletion with items
+                    await axios.delete(
+                        `https://nteq-back-end.vercel.app/api/equipment/${equipmentId}?deleteItems=true`
+                    );
+                    FetchData();
+                } catch (secondError) {
+                    console.error("Error deleting equipment with items:", secondError);
+                    alert("เกิดข้อผิดพลาดในการลบอุปกรณ์และอุปกรณ์ย่อย");
+                }
+            }
+            return;
+        }
+
         console.error("Error deleting equipment:", error);
         alert("เกิดข้อผิดพลาดในการลบอุปกรณ์");
-      }
     }
-  };
+};
 
   const handleEditImageChange = async (e) => {
     const file = e.target.files[0];
