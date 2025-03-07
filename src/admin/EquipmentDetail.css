@@ -1,0 +1,37 @@
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    /* ทำให้พื้นหลังมืด */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background: white;
+    padding: 30px;
+    /* เพิ่ม padding */
+    border-radius: 10px;
+    width: 50%;
+    /* กำหนดให้กว้างขึ้น */
+    max-width: 500px;
+    height: 600px;
+    /* ไม่ให้ใหญ่เกินไป */
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.formEdit .form-control {
+    font-size: 18px;
+    /* ขยายตัวอักษร */
+    padding: 12px;
+    /* เพิ่ม padding */
+}
+
+.formEdit .btn {
+    font-size: 16px;
+    padding: 10px 20px;
+}

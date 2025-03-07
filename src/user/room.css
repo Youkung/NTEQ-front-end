@@ -1,0 +1,12 @@
+.search-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .position-relative {
+    min-width: 150px;
+  }
+  .btn {
+    height: 38px; /* ทำให้ปุ่มมีความสูงเท่ากับ input field */
+  }
+  

@@ -1,0 +1,15 @@
+.profile-picture-container {
+    max-width: 200px;
+    margin-bottom: 20px;
+  }
+  
+  .profile-picture {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+  }
+  
+  button {
+    margin-top: 10px;
+  }
+  

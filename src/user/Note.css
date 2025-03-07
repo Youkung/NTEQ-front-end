@@ -1,0 +1,15 @@
+.note-app {
+    min-height: 100vh;
+  }
+  
+  .note-card {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .note-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
