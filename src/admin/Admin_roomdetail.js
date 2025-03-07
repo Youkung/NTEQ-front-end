@@ -28,20 +28,21 @@ function Roomdetail() {
                 const objectsResponse = await fetch(`https://nteq-back-end.vercel.app/api/rooms/${id}/objects`);
 
                 if (!objectsResponse.ok) {
-                    throw new Error(`HTTP error! status: ${objectsResponse.status}`);
+                    const errorData = await objectsResponse.json();
+                    throw new Error(errorData.message || `HTTP error! status: ${objectsResponse.status}`);
                 }
 
                 const objectsData = await objectsResponse.json();
                 console.log('Received objects data:', objectsData);
 
-                if (!Array.isArray(objectsData)) {
-                    console.error('Received non-array data:', objectsData);
-                    throw new Error('Invalid data format received');
-                }
+                // Always ensure we're working with an array
+                const objectsArray = Array.isArray(objectsData) ? objectsData : 
+                                   objectsData.data ? objectsData.data : [];
 
-                setObjects(objectsData);
+                setObjects(objectsArray);
             } catch (error) {
                 console.error('Error fetching data:', error);
+                setObjects([]); // Set empty array on error
                 alert('เกิดข้อผิดพลาดในการโหลดข้อมูล: ' + error.message);
             } finally {
                 setLoading(false);

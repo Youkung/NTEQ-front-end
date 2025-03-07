@@ -638,8 +638,8 @@ function EquipmentDetail() {
                     onChange={handleStatusChange}
                   >
                     <option value="">เลือกสถานะ</option>
-                    <option value="ใช้งาน">ใช้งาน</option>
-                    <option value="ไม่ใช้งาน">ไม่ใช้งาน</option>
+                    <option value="active">active</option>
+                    <option value="inactive">inactive</option>
                   </select>
                 </div>
                 <div className="d-flex ">
@@ -770,8 +770,8 @@ function EquipmentDetail() {
                 onChange={handleInputChange}
               >
                 <option value="">เลือกสถานะ</option>
-                <option value="ใช้งาน">ใช้งาน</option>
-                <option value="ไม่ใช้งาน">ไม่ใช้งาน</option>
+                <option value="active">active</option>
+                <option value="inactive">inactive</option>
               </select>
               <button type="submit" className="btn btn-primary me-2">
                 {selectedItem ? "แก้ไข" : "เพิ่ม"}

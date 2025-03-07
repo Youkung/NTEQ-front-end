@@ -398,8 +398,8 @@ const RackDetail = () => {
                                                         value={addForm.Item_Status}
                                                         onChange={(e) => setAddForm({ ...addForm, Item_Status: e.target.value })}
                                                     >
-                                                        <option value="active">ใช้งานได้</option>
-                                                        <option value="inactive">ไม่สามารถใช้งานได้</option>
+                                                        <option value="active">active</option>
+                                                        <option value="inactive">inactive</option>
                                                     </select>
                                                 </div>
                                                 <div className="mb-3">
@@ -450,8 +450,8 @@ const RackDetail = () => {
                                                         value={editForm.Item_Status}
                                                         onChange={(e) => setEditForm({ ...editForm, Item_Status: e.target.value })}
                                                     >
-                                                        <option value="active">ใช้งานได้</option>
-                                                        <option value="inactive">ไม่สามารถใช้งานได้</option>
+                                                        <option value="active">active</option>
+                                                        <option value="inactive">inactive</option>
                                                     </select>
                                                 </div>
                                                 <div className="mb-3">
