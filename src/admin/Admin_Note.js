@@ -32,7 +32,7 @@ const NotesPage = ({ userData: initialUserData = { name: "" } }) => {
 
   const fetchNotes = async (page = 1) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/note?page=${page}`);
+      const response = await fetch(`https://nteq-back-end.vercel.app/api/note?page=${page}`);
       const result = await response.json();
       setNotes(
         result.data.map((note) => ({
@@ -54,7 +54,7 @@ const NotesPage = ({ userData: initialUserData = { name: "" } }) => {
   const fetchUserData = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:8080/api/user/profile", {
+      const response = await fetch("https://nteq-back-end.vercel.app/api/user/profile", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -127,7 +127,7 @@ const NotesPage = ({ userData: initialUserData = { name: "" } }) => {
 
     for (let i = 0; i < totalChunks; i++) {
       const chunk = imageData.slice(i * chunkSize, (i + 1) * chunkSize);
-      const response = await fetch("http://localhost:8080/api/upload-chunk", {
+      const response = await fetch("https://nteq-back-end.vercel.app/api/upload-chunk", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ imageId, chunk, chunkIndex: i, totalChunks }),
@@ -164,7 +164,7 @@ const NotesPage = ({ userData: initialUserData = { name: "" } }) => {
         Note_Images: imagePaths, // Send array of image paths
       };
 
-      const response = await fetch("http://localhost:8080/api/note", {
+      const response = await fetch("https://nteq-back-end.vercel.app/api/note", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(noteData),
@@ -196,7 +196,7 @@ const NotesPage = ({ userData: initialUserData = { name: "" } }) => {
         // Split images into existing and new ones
         for (const img of newNote.images) {
             if (img.url?.startsWith('http')) {
-                existingImageUrls.push(img.url.replace('http://localhost:8080', ''));
+                existingImageUrls.push(img.url.replace('https://nteq-back-end.vercel.app', ''));
             } else if (img.file) {
                 newImages.push(img);
             }
@@ -222,7 +222,7 @@ const NotesPage = ({ userData: initialUserData = { name: "" } }) => {
             Note_Images: allImagePaths,
         };
 
-        const response = await fetch(`http://localhost:8080/api/note/${selectedNote.id}`, {
+        const response = await fetch(`https://nteq-back-end.vercel.app/api/note/${selectedNote.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(noteData),
@@ -260,13 +260,13 @@ const NotesPage = ({ userData: initialUserData = { name: "" } }) => {
 
   const handleViewDetails = async (note) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/note/images/${note.id}`);
+      const response = await fetch(`https://nteq-back-end.vercel.app/api/note/images/${note.id}`);
       const result = await response.json();
       setSelectedNote({
         ...note,
         images: result.images.map(image => ({
           ...image,
-          Image_Path: `http://localhost:8080${image.Image_Path}`
+          Image_Path: `https://nteq-back-end.vercel.app${image.Image_Path}`
         })),
       });
       setShowDetailsPopup(true);
@@ -277,14 +277,14 @@ const NotesPage = ({ userData: initialUserData = { name: "" } }) => {
 
   const handleEditClick = async (note) => {
     try {
-        const response = await fetch(`http://localhost:8080/api/note/images/${note.id}`);
+        const response = await fetch(`https://nteq-back-end.vercel.app/api/note/images/${note.id}`);
         const result = await response.json();
         
         setSelectedNote({
             ...note,
             images: result.images.map(image => ({
                 ...image,
-                Image_Path: `http://localhost:8080${image.Image_Path}`
+                Image_Path: `https://nteq-back-end.vercel.app${image.Image_Path}`
             })),
         });
         
@@ -292,7 +292,7 @@ const NotesPage = ({ userData: initialUserData = { name: "" } }) => {
             title: note.title,
             content: note.content,
             images: result.images.map(image => ({
-                url: `http://localhost:8080${image.Image_Path}`
+                url: `https://nteq-back-end.vercel.app${image.Image_Path}`
             })),
             date: note.date,
         });
@@ -307,7 +307,7 @@ const NotesPage = ({ userData: initialUserData = { name: "" } }) => {
   const handleDeleteNote = async (noteId) => {
     if (window.confirm("Are you sure you want to delete this note?")) {
       try {
-        const response = await fetch(`http://localhost:8080/api/note/${noteId}`, {
+        const response = await fetch(`https://nteq-back-end.vercel.app/api/note/${noteId}`, {
           method: "DELETE",
         });
         if (!response.ok) {
@@ -342,7 +342,7 @@ const NotesPage = ({ userData: initialUserData = { name: "" } }) => {
 
   const handleSearch = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/api/note/search?searchType=${searchType}&searchTerm=${searchTerm}`);
+      const response = await fetch(`https://nteq-back-end.vercel.app/api/note/search?searchType=${searchType}&searchTerm=${searchTerm}`);
       const result = await response.json();
       if (result.success) {
         setNotes(result.data.map((note) => ({

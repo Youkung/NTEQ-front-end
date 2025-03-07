@@ -35,7 +35,7 @@ function MyNotesPage() {
                 return;
             }
 
-            const response = await fetch('http://localhost:8080/api/user/profile', {
+            const response = await fetch('https://nteq-back-end.vercel.app/api/user/profile', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -63,7 +63,7 @@ function MyNotesPage() {
         try {
             if (!userId) return;
 
-            const response = await fetch(`http://localhost:8080/api/note/user/${userId}`);
+            const response = await fetch(`https://nteq-back-end.vercel.app/api/note/user/${userId}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -94,7 +94,7 @@ function MyNotesPage() {
     const handleDeleteNote = async (noteId) => {
         if (window.confirm("Are you sure you want to delete this note?")) {
             try {
-                const response = await fetch(`http://localhost:8080/api/note/${noteId}`, {
+                const response = await fetch(`https://nteq-back-end.vercel.app/api/note/${noteId}`, {
                     method: "DELETE",
                 });
                 if (!response.ok) {
@@ -111,13 +111,13 @@ function MyNotesPage() {
 
     const handleViewDetails = async (note) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/note/images/${note.id}`);
+            const response = await fetch(`https://nteq-back-end.vercel.app/api/note/images/${note.id}`);
             const result = await response.json();
             setSelectedNote({
                 ...note,
                 images: result.images.map(image => ({
                     ...image,
-                    Image_Path: `http://localhost:8080${image.Image_Path}`
+                    Image_Path: `https://nteq-back-end.vercel.app${image.Image_Path}`
                 })),
             });
             setShowDetailsPopup(true);
@@ -128,7 +128,7 @@ function MyNotesPage() {
 
     const handleEdit = async (note) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/note/images/${note.id}`);
+            const response = await fetch(`https://nteq-back-end.vercel.app/api/note/images/${note.id}`);
             const result = await response.json();
             
             if (!response.ok) {
@@ -148,7 +148,7 @@ function MyNotesPage() {
             setEditImages(
                 result.images.map(image => ({
                     Image_ID: image.Image_ID,
-                    Image_Path: `http://localhost:8080${image.Image_Path}`,
+                    Image_Path: `https://nteq-back-end.vercel.app${image.Image_Path}`,
                     isNew: false
                 }))
             );
@@ -171,7 +171,7 @@ function MyNotesPage() {
                     // Upload new image
                     const imageId = crypto.randomUUID();
                     const chunk = image.base64Data.split(',')[1];
-                    const response = await fetch('http://localhost:8080/api/upload-chunk', {
+                    const response = await fetch('https://nteq-back-end.vercel.app/api/upload-chunk', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -186,12 +186,12 @@ function MyNotesPage() {
                     imagePaths.push(`/uploads/${imageId}.jpg`);
                 } else {
                     // Keep existing image path
-                    imagePaths.push(image.Image_Path.replace('http://localhost:8080', ''));
+                    imagePaths.push(image.Image_Path.replace('https://nteq-back-end.vercel.app', ''));
                 }
             }
 
             // Update note with new data
-            const response = await fetch(`http://localhost:8080/api/note/${editNote.id}`, {
+            const response = await fetch(`https://nteq-back-end.vercel.app/api/note/${editNote.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

@@ -18,7 +18,7 @@ function Equipment() {
   useEffect(() => {
     const fetchEquipment = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/equipement');
+        const response = await fetch('https://nteq-back-end.vercel.app/api/equipement');
         const result = await response.json();
         if (result.data) {
           setEquipment(result.data);

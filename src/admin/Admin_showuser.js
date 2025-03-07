@@ -59,7 +59,7 @@ const UserManagement = () => {
     try {
       if (editingUserId) {
         const response = await fetch(
-          `http://localhost:8080/api/user/${editingUserId}`,
+          `https://nteq-back-end.vercel.app/api/user/${editingUserId}`,
           {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
@@ -79,7 +79,7 @@ const UserManagement = () => {
           user.User_ID === editingUserId ? updatedData.user : user
         ));
       } else {
-        const response = await fetch("http://localhost:8080/api/users", {
+        const response = await fetch("https://nteq-back-end.vercel.app/api/users", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(newUser),
@@ -121,7 +121,7 @@ const UserManagement = () => {
 
   const fetchRoles = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/roles");
+      const response = await fetch("https://nteq-back-end.vercel.app/api/roles");
       if (!response.ok) {
         throw new Error("Failed to fetch roles");
       }
@@ -136,7 +136,7 @@ const UserManagement = () => {
     if (window.confirm("Are you sure you want to delete this user?")) {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/user/${userId}`,
+          `https://nteq-back-end.vercel.app/api/user/${userId}`,
           {
             method: "DELETE",
           }
@@ -195,7 +195,7 @@ const UserManagement = () => {
   const fetchUsers = async (page = 1) => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:8080/api/users?page=${page}&limit=10`);
+      const response = await fetch(`https://nteq-back-end.vercel.app/api/users?page=${page}&limit=10`);
       const result = await response.json();
       console.log("Fetched users data:", result); // Debug log
       if (result.data) {

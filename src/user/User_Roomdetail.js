@@ -25,7 +25,7 @@ function Roomdetail() {
             setLoading(true);
             try {
                 console.log('Fetching objects for room:', id);
-                const objectsResponse = await fetch(`http://localhost:8080/api/rooms/${id}/objects`);
+                const objectsResponse = await fetch(`https://nteq-back-end.vercel.app/api/rooms/${id}/objects`);
 
                 if (!objectsResponse.ok) {
                     throw new Error(`HTTP error! status: ${objectsResponse.status}`);
@@ -73,7 +73,7 @@ function Roomdetail() {
     const handleAddObject = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:8080/api/objects`, {
+            const response = await fetch(`https://nteq-back-end.vercel.app/api/objects`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ function Roomdetail() {
             });
 
             if (response.ok) {
-                const objectsResponse = await fetch(`http://localhost:8080/api/rooms/${id}/objects`);
+                const objectsResponse = await fetch(`https://nteq-back-end.vercel.app/api/rooms/${id}/objects`);
                 const objectsData = await objectsResponse.json();
                 setObjects(objectsData);
                 setShowModal(false);
@@ -107,7 +107,7 @@ function Roomdetail() {
     const handleEditObject = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:8080/api/objects/${editingObject.Object_ID}`, {
+            const response = await fetch(`https://nteq-back-end.vercel.app/api/objects/${editingObject.Object_ID}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -120,7 +120,7 @@ function Roomdetail() {
             });
 
             if (response.ok) {
-                const objectsResponse = await fetch(`http://localhost:8080/api/rooms/${id}/objects`);
+                const objectsResponse = await fetch(`https://nteq-back-end.vercel.app/api/rooms/${id}/objects`);
                 const objectsData = await objectsResponse.json();
                 setObjects(objectsData);
                 setShowEditModal(false);
@@ -134,12 +134,12 @@ function Roomdetail() {
     const handleDeleteObject = async (objectId) => {
         if (window.confirm('คุณแน่ใจหรือไม่ว่าต้องการลบอุปกรณ์นี้?')) {
             try {
-                const response = await fetch(`http://localhost:8080/api/objects/${objectId}`, {
+                const response = await fetch(`https://nteq-back-end.vercel.app/api/objects/${objectId}`, {
                     method: 'DELETE'
                 });
 
                 if (response.ok) {
-                    const objectsResponse = await fetch(`http://localhost:8080/api/rooms/${id}/objects`);
+                    const objectsResponse = await fetch(`https://nteq-back-end.vercel.app/api/rooms/${id}/objects`);
                     const objectsData = await objectsResponse.json();
                     setObjects(objectsData);
                 } else {

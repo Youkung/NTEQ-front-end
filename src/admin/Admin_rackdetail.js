@@ -34,14 +34,14 @@ const RackDetail = () => {
         const fetchData = async () => {
             try {
                 // First fetch object details to get room ID
-                const objectResponse = await fetch(`http://localhost:8080/api/object/${id}`);
+                const objectResponse = await fetch(`https://nteq-back-end.vercel.app/api/object/${id}`);
                 const objectData = await objectResponse.json();
                 if (objectData.success) {
                     setRoomId(objectData.data.Room_ID);
                 }
 
                 // Then fetch items
-                const itemsResponse = await fetch(`http://localhost:8080/api/objects/${id}/items`);
+                const itemsResponse = await fetch(`https://nteq-back-end.vercel.app/api/objects/${id}/items`);
                 const itemsData = await itemsResponse.json();
                 if (itemsData.success) {
                     setItems(itemsData.data);
@@ -70,7 +70,7 @@ const RackDetail = () => {
     useEffect(() => {
         const fetchAvailableEquipment = async () => {
             try {
-                const response = await fetch('http://localhost:8080/api/available-equipment');
+                const response = await fetch('https://nteq-back-end.vercel.app/api/available-equipment');
                 const data = await response.json();
                 if (data.success) {
                     setAvailableEquipment(data.data);
@@ -117,7 +117,7 @@ const RackDetail = () => {
 
     const handleEditSubmit = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/item/${selectedItem.Item_ID}`, {
+            const response = await fetch(`https://nteq-back-end.vercel.app/api/item/${selectedItem.Item_ID}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -131,7 +131,7 @@ const RackDetail = () => {
 
             if (response.ok) {
                 // Refresh items list
-                const itemsResponse = await fetch(`http://localhost:8080/api/objects/${id}/items`);
+                const itemsResponse = await fetch(`https://nteq-back-end.vercel.app/api/objects/${id}/items`);
                 const itemsData = await itemsResponse.json();
                 if (itemsData.success) {
                     setItems(itemsData.data);
@@ -148,7 +148,7 @@ const RackDetail = () => {
 
     const handleDeleteConfirm = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/item/${selectedItem.Item_ID}`, {
+            const response = await fetch(`https://nteq-back-end.vercel.app/api/item/${selectedItem.Item_ID}`, {
                 method: 'DELETE'
             });
 
@@ -171,7 +171,7 @@ const RackDetail = () => {
     const handleAddSubmit = async () => {
         try {
             const userData = JSON.parse(localStorage.getItem('userData'));
-            const response = await fetch(`http://localhost:8080/api/objects/${id}/items`, {
+            const response = await fetch(`https://nteq-back-end.vercel.app/api/objects/${id}/items`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -186,7 +186,7 @@ const RackDetail = () => {
 
             if (data.success) {
                 // Refresh items list
-                const itemsResponse = await fetch(`http://localhost:8080/api/objects/${id}/items`);
+                const itemsResponse = await fetch(`https://nteq-back-end.vercel.app/api/objects/${id}/items`);
                 const itemsData = await itemsResponse.json();
                 if (itemsData.success) {
                     setItems(itemsData.data);

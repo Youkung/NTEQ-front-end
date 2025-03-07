@@ -16,7 +16,7 @@ function User_Dashboard_detail() {
     }
 
     // Fetch dashboard data
-    fetch('http://localhost:8080/api/device-summary')
+    fetch('https://nteq-back-end.vercel.app/api/device-summary')
       .then(response => response.json())
       .then(data => setSummaryData(data))
       .catch(error => console.error('Error fetching summary:', error));

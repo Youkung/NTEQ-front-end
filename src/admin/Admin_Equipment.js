@@ -63,7 +63,7 @@ function Equipment() {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/equipment/${editData.Equipe_ID}`,
+        `https://nteq-back-end.vercel.app/api/equipment/${editData.Equipe_ID}`,
         {
           Equipe_Photo: editData.Equipe_Photo,
           Equipe_Name: editData.Equipe_Name,
@@ -108,7 +108,7 @@ function Equipment() {
     if (isConfirmed) {
       try {
         await axios.delete(
-          `http://localhost:8080/api/equipment/${equipmentId}`
+          `https://nteq-back-end.vercel.app/api/equipment/${equipmentId}`
         );
         // รีเฟรชข้อมูลหลังลบสำเร็จ
         FetchData();
@@ -233,7 +233,7 @@ function Equipment() {
     }
 
     try {
-      await axios.post("http://localhost:8080/api/equipment", equipmentData);
+      await axios.post("https://nteq-back-end.vercel.app/api/equipment", equipmentData);
       setShowModal(false);
       FetchData();
       // รีเซ็ตฟอร์ม
@@ -251,7 +251,7 @@ function Equipment() {
 
   const FetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/equipement");
+      const response = await axios.get("https://nteq-back-end.vercel.app/api/equipement");
       console.log("API Response:", response.data);
       setData(response.data.data);
     } catch (error) {

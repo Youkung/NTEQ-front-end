@@ -19,7 +19,7 @@ function Admin_AddRoomModal({ isOpen, onClose }) {
 
   useEffect(() => {
     if (isOpen) {
-      fetch("http://localhost:8080/api/nodes")
+      fetch("https://nteq-back-end.vercel.app/api/nodes")
         .then((res) => res.json())
         .then((data) => setNodes(data.data))
         .catch((err) => console.error(err));
@@ -28,7 +28,7 @@ function Admin_AddRoomModal({ isOpen, onClose }) {
 
   const handleNodeChange = (nodeId) => {
     setSelectedNode(nodeId);
-    fetch(`http://localhost:8080/api/rooms?nodeId=${nodeId}`)
+    fetch(`https://nteq-back-end.vercel.app/api/rooms?nodeId=${nodeId}`)
       .then((res) => res.json())
       .then((data) => setRooms(data.data))
       .catch((err) => console.error(err));
@@ -37,7 +37,7 @@ function Admin_AddRoomModal({ isOpen, onClose }) {
   const handleSubmit = () => {
     if (buildingName) {
       // ส่งข้อมูลเพิ่มอาคาร
-      fetch("http://localhost:8080/api/buildings", {
+      fetch("https://nteq-back-end.vercel.app/api/buildings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -49,7 +49,7 @@ function Admin_AddRoomModal({ isOpen, onClose }) {
 
     if (floorName) {
       // ส่งข้อมูลเพิ่มชั้น
-      fetch("http://localhost:8080/api/floors", {
+      fetch("https://nteq-back-end.vercel.app/api/floors", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -62,7 +62,7 @@ function Admin_AddRoomModal({ isOpen, onClose }) {
 
     if (roomName && roomFloor) {
       // ส่งข้อมูลเพิ่มห้อง
-      fetch("http://localhost:8080/api/rooms", {
+      fetch("https://nteq-back-end.vercel.app/api/rooms", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -75,7 +75,7 @@ function Admin_AddRoomModal({ isOpen, onClose }) {
 
     if (objectName && selectedRoom) {
       // ส่งข้อมูลเพิ่มอุปกรณ์
-      fetch("http://localhost:8080/api/objects", {
+      fetch("https://nteq-back-end.vercel.app/api/objects", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -96,7 +96,7 @@ function Admin_AddRoomModal({ isOpen, onClose }) {
       formData.append("Equipment_Image", equipmentImage);
       formData.append("Equipment_Quantity", equipmentQuantity);
 
-      fetch("http://localhost:8080/api/equipment", {
+      fetch("https://nteq-back-end.vercel.app/api/equipment", {
         method: "POST",
         body: formData,
       })
@@ -118,7 +118,7 @@ function Admin_AddRoomModal({ isOpen, onClose }) {
     formData.append("Equipment_Image", equipmentImage);
     formData.append("Equipment_Quantity", equipmentQuantity);
 
-    fetch("http://localhost:8080/api/equipment", {
+    fetch("https://nteq-back-end.vercel.app/api/equipment", {
       method: "POST",
       body: formData,
     })

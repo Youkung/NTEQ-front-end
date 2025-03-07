@@ -58,8 +58,8 @@ function Admin_Room() {
   const handleEditSubmit = async (type) => {
     if (window.confirm(`ยืนยันการแก้ไขข้อมูล${type === 'node' ? 'สาขา' : 'ห้อง'}?`)) {
       const endpoint = type === 'node' ?
-        `http://localhost:8080/api/rooms/node/${editData.nodeId}` :
-        `http://localhost:8080/api/rooms/room/${editData.roomId}`;
+        `https://nteq-back-end.vercel.app/api/rooms/node/${editData.nodeId}` :
+        `https://nteq-back-end.vercel.app/api/rooms/room/${editData.roomId}`;
 
       const data = type === 'node' ?
         {
@@ -85,7 +85,7 @@ function Admin_Room() {
         alert(result.message);
 
         if (response.ok) {
-          fetch("http://localhost:8080/api/rooms")
+          fetch("https://nteq-back-end.vercel.app/api/rooms")
             .then(res => res.json())
             .then(data => setRooms(data.data));
           setShowEditModal(false);
@@ -108,14 +108,14 @@ function Admin_Room() {
   const handleConfirmDelete = async (type) => {
     if (window.confirm(`ยืนยันการลบ${type === 'node' ? 'สาขา' : 'ห้อง'}?`)) {
       try {
-        const response = await fetch(`http://localhost:8080/api/rooms/${type}/${type === 'node' ? selectedItem.nodeId : selectedItem.roomId}`, {
+        const response = await fetch(`https://nteq-back-end.vercel.app/api/rooms/${type}/${type === 'node' ? selectedItem.nodeId : selectedItem.roomId}`, {
           method: 'DELETE'
         });
         const data = await response.json();
 
         if (response.ok) {
           alert(data.message);
-          fetch("http://localhost:8080/api/rooms")
+          fetch("https://nteq-back-end.vercel.app/api/rooms")
             .then(res => res.json())
             .then(data => setRooms(data.data));
         } else {
@@ -151,7 +151,7 @@ function Admin_Room() {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/rooms?page=${currentPage}`);
+        const response = await fetch(`https://nteq-back-end.vercel.app/api/rooms?page=${currentPage}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -184,7 +184,7 @@ function Admin_Room() {
       room: searchRoom,
     }).toString();
 
-    fetch(`http://localhost:8080/api/rooms/search?${searchParams}`)
+    fetch(`https://nteq-back-end.vercel.app/api/rooms/search?${searchParams}`)
       .then((res) => res.json())
       .then((data) => {
         setRooms(data.data);
@@ -196,7 +196,7 @@ function Admin_Room() {
     setSearchBranchNumber(value);
     if (value.length > 0) {
       fetch(
-        `http://localhost:8080/api/rooms/suggestions?type=branch_number&search=${value}`
+        `https://nteq-back-end.vercel.app/api/rooms/suggestions?type=branch_number&search=${value}`
       )
         .then((res) => res.json())
         .then((data) => setBranchNumberSuggestions(data.suggestions));
@@ -209,7 +209,7 @@ function Admin_Room() {
     setSearchBranchName(value);
     if (value.length > 0) {
       fetch(
-        `http://localhost:8080/api/rooms/suggestions?type=branch_name&search=${value}`
+        `https://nteq-back-end.vercel.app/api/rooms/suggestions?type=branch_name&search=${value}`
       )
         .then((res) => res.json())
         .then((data) => setBranchNameSuggestions(data.suggestions));
@@ -222,7 +222,7 @@ function Admin_Room() {
     setSearchBuilding(value);
     if (value.length > 0) {
       fetch(
-        `http://localhost:8080/api/rooms/suggestions?type=building&search=${value}`
+        `https://nteq-back-end.vercel.app/api/rooms/suggestions?type=building&search=${value}`
       )
         .then((res) => res.json())
         .then((data) => setBuildingSuggestions(data.suggestions));
@@ -235,7 +235,7 @@ function Admin_Room() {
     setSearchFloor(value);
     if (value.length > 0) {
       fetch(
-        `http://localhost:8080/api/rooms/suggestions?type=floor&search=${value}`
+        `https://nteq-back-end.vercel.app/api/rooms/suggestions?type=floor&search=${value}`
       )
         .then((res) => res.json())
         .then((data) => setFloorSuggestions(data.suggestions));
@@ -248,7 +248,7 @@ function Admin_Room() {
     setSearchRoom(value);
     if (value.length > 0) {
       fetch(
-        `http://localhost:8080/api/rooms/suggestions?type=room&search=${value}`
+        `https://nteq-back-end.vercel.app/api/rooms/suggestions?type=room&search=${value}`
       )
         .then((res) => res.json())
         .then((data) => setRoomSuggestions(data.suggestions));
@@ -261,7 +261,7 @@ function Admin_Room() {
     setIsModalOpen(true);
     setAddFlowStep('initial');
     // Fetch available nodes
-    fetch("http://localhost:8080/api/rooms/nodes")
+    fetch("https://nteq-back-end.vercel.app/api/rooms/nodes")
       .then(res => res.json())
       .then(data => {
         if (data.nodes) {
@@ -289,7 +289,7 @@ function Admin_Room() {
       setNodeSearch(value);
       if (value.trim()) {
         try {
-          const response = await fetch(`http://localhost:8080/api/rooms/nodes/search?search=${value}`);
+          const response = await fetch(`https://nteq-back-end.vercel.app/api/rooms/nodes/search?search=${value}`);
           const data = await response.json();
           setFilteredNodes(data.nodes);
         } catch (error) {
@@ -317,7 +317,7 @@ function Admin_Room() {
       try {
         console.log("Sending node data:", newNodeData); // Debug log
 
-        const response = await fetch('http://localhost:8080/api/rooms/node', {
+        const response = await fetch('https://nteq-back-end.vercel.app/api/rooms/node', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -342,7 +342,7 @@ function Admin_Room() {
         setAddFlowStep('addRoom');
 
         // Refresh nodes list
-        const nodesResponse = await fetch("http://localhost:8080/api/rooms/nodes");
+        const nodesResponse = await fetch("https://nteq-back-end.vercel.app/api/rooms/nodes");
         const nodesData = await nodesResponse.json();
         if (nodesData.nodes) {
           setNodes(nodesData.nodes);
@@ -360,7 +360,7 @@ function Admin_Room() {
       }
 
       try {
-        const response = await fetch('http://localhost:8080/api/rooms/room', {
+        const response = await fetch('https://nteq-back-end.vercel.app/api/rooms/room', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -383,7 +383,7 @@ function Admin_Room() {
         setIsModalOpen(false);
 
         // Refresh room list
-        const roomsResponse = await fetch("http://localhost:8080/api/rooms");
+        const roomsResponse = await fetch("https://nteq-back-end.vercel.app/api/rooms");
         const roomsData = await roomsResponse.json();
         if (roomsData.data) {
           setRooms(roomsData.data);
@@ -397,7 +397,7 @@ function Admin_Room() {
     // Add function to fetch existing rooms for selected node
     const fetchExistingRooms = async (nodeId) => {
       try {
-        const response = await fetch(`http://localhost:8080/api/rooms/${nodeId}`);
+        const response = await fetch(`https://nteq-back-end.vercel.app/api/rooms/${nodeId}`);
         const data = await response.json();
         if (data.data) {
           setExistingRooms(data.data);

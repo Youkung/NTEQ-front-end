@@ -57,13 +57,13 @@ function EquipmentDetail() {
     const fetchDetail = async () => {
       try {
         const equipmentResponse = await axios.get(
-          `http://localhost:8080/api/equipement/${id}`
+          `https://nteq-back-end.vercel.app/api/equipement/${id}`
         );
         setDetail(equipmentResponse.data);
 
         // Fetch items for this equipment
         const itemsResponse = await axios.get(
-          `http://localhost:8080/api/items/${id}`
+          `https://nteq-back-end.vercel.app/api/items/${id}`
         );
 
         // Ensure we're getting an array from the response
@@ -81,7 +81,7 @@ function EquipmentDetail() {
   useEffect(() => {
     const fetchNodes = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/nodes");
+        const response = await axios.get("https://nteq-back-end.vercel.app/api/nodes");
         setNodes(response.data.data);
       } catch (error) {
         console.error("Error fetching nodes:", error);
@@ -121,13 +121,13 @@ function EquipmentDetail() {
       if (selectedItem) {
         // Update existing item
         const response = await axios.put(
-          `http://localhost:8080/api/item/${selectedItem.Item_ID}`,
+          `https://nteq-back-end.vercel.app/api/item/${selectedItem.Item_ID}`,
           newItem
         );
         alert(response.data.message || "แก้ไขข้อมูลสำเร็จ");
       } else {
         // Add new item
-        const response = await axios.post("http://localhost:8080/api/item", newItem);
+        const response = await axios.post("https://nteq-back-end.vercel.app/api/item", newItem);
         alert(response.data.message || "เพิ่มอุปกรณ์สำเร็จ");
       }
 
@@ -136,7 +136,7 @@ function EquipmentDetail() {
       setSelectedItem(null);
 
       // Refresh items list
-      const itemsResponse = await axios.get(`http://localhost:8080/api/items/${id}`);
+      const itemsResponse = await axios.get(`https://nteq-back-end.vercel.app/api/items/${id}`);
       // Ensure we're getting an array from the response
       const updatedItems = itemsResponse.data?.items || [];
       setItems(Array.isArray(updatedItems) ? updatedItems : []);
@@ -158,7 +158,7 @@ function EquipmentDetail() {
     setNewEquipment((prev) => ({ ...prev, nodeId }));
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/rooms/${nodeId}`
+        `https://nteq-back-end.vercel.app/api/rooms/${nodeId}`
       );
       setRooms(response.data.data);
       setObjects([]); // Clear objects when node changes
@@ -173,7 +173,7 @@ function EquipmentDetail() {
     try {
       // เรียก API เพื่อดึงข้อมูล objects ในห้องที่เลือก
       const response = await axios.get(
-        `http://localhost:8080/api/objects/${roomId}`
+        `https://nteq-back-end.vercel.app/api/objects/${roomId}`
       );
       // ตรวจสอบว่ามี data property และเป็น array หรือไม่
       if (response.data && Array.isArray(response.data)) {
@@ -204,12 +204,12 @@ function EquipmentDetail() {
     }
 
     try {
-      await axios.delete(`http://localhost:8080/api/item/${itemId}`);
+      await axios.delete(`https://nteq-back-end.vercel.app/api/item/${itemId}`);
 
       // Refresh items list with proper error handling
       try {
         const itemsResponse = await axios.get(
-          `http://localhost:8080/api/items/${id}`
+          `https://nteq-back-end.vercel.app/api/items/${id}`
         );
 
         // Ensure we're getting an array from the response
@@ -233,7 +233,7 @@ function EquipmentDetail() {
 
       // First get the complete object data
       const objectResponse = await axios.get(
-        `http://localhost:8080/api/object/${item.Object_ID}`
+        `https://nteq-back-end.vercel.app/api/object/${item.Object_ID}`
       );
       const objectData = objectResponse.data.data;
 
@@ -249,13 +249,13 @@ function EquipmentDetail() {
 
       // Fetch rooms for the selected node
       const roomsResponse = await axios.get(
-        `http://localhost:8080/api/rooms/${objectData.Node_ID}`
+        `https://nteq-back-end.vercel.app/api/rooms/${objectData.Node_ID}`
       );
       setRooms(roomsResponse.data.data || []);
 
       // Fetch objects for the selected room
       const objectsResponse = await axios.get(
-        `http://localhost:8080/api/objects/${objectData.Room_ID}`
+        `https://nteq-back-end.vercel.app/api/objects/${objectData.Room_ID}`
       );
       setObjects(objectsResponse.data || []);
 
@@ -270,7 +270,7 @@ function EquipmentDetail() {
   const handleViewHistory = async (item) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/item/history/${item.Item_ID}`
+        `https://nteq-back-end.vercel.app/api/item/history/${item.Item_ID}`
       );
       setItemHistory(response.data.data);
       setSelectedItem(item);
@@ -283,7 +283,7 @@ function EquipmentDetail() {
   const fetchSuggestions = (type, search, setSuggestions) => {
     if (search.length > 0) {
       fetch(
-        `http://localhost:8080/api/equipment/suggestions?type=${type}&search=${search}`
+        `https://nteq-back-end.vercel.app/api/equipment/suggestions?type=${type}&search=${search}`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -341,7 +341,7 @@ function EquipmentDetail() {
     }).toString();
 
     try {
-      const response = await fetch(`http://localhost:8080/api/equipment/search?${searchParams}`);
+      const response = await fetch(`https://nteq-back-end.vercel.app/api/equipment/search?${searchParams}`);
       const data = await response.json();
 
       // Ensure we're setting an array
